@@ -153,18 +153,18 @@ class _DashboardState extends State<Dashboard> {
               ),
               // COFFEE CONTAINERS
               Container(
-                height: (MediaQuery.of(context).size.height / 2) - 50,
+                height: (MediaQuery.of(context).size.height / 2) + 50,
                 // color: Colors.white,
                 width: MediaQuery.of(context).size.width,
                 child: ListView(
-                  padding: EdgeInsets.only(top: 5),
+                  padding: EdgeInsets.only(top: 8),
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left: 15.0, right: 15),
                       child: Container(
                         color: Color(0xFF0D0F14),
                         width: MediaQuery.of(context).size.width - 10,
-                        height: 225.0,
+                        height: 270.0,
                         child: ListView(
                           scrollDirection: Axis.horizontal,
                           children: [
@@ -175,6 +175,80 @@ class _DashboardState extends State<Dashboard> {
                         ),
                       ),
                     ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: 15,
+                        right: 15,
+                        top: 10,
+                      ),
+                      child: Text(
+                        'Special for you',
+                        style: GoogleFonts.sourceSansPro(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            fontSize: 18),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 15, right: 15, top: 10),
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        height: 170,
+                        width: MediaQuery.of(context).size.width - 20,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: <Color>[
+                              ColorPalette.gradientTopLeft,
+                              Colors.black
+                            ],
+                          ),
+                          // color: Colors.white,
+                        ),
+                        child: Row(
+                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              height: 150,
+                              width: 160,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                image: DecorationImage(
+                                  image: AssetImage('images/beansbottom.jpeg'),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8),
+                              child: Container(
+                                height: 150,
+                                width: 150,
+                                // color: Colors.white,
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      height: 100,
+                                      width:
+                                          MediaQuery.of(context).size.width - 220,
+                                      child: Text(
+                                        '5 Coffee Beans You Must Try !',
+                                        style: GoogleFonts.sourceSansPro(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                            fontSize: 17),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -206,7 +280,7 @@ class _DashboardState extends State<Dashboard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                height: 140,
+                height: 170,
                 width: 180,
                 child: Stack(
                   children: [
@@ -216,7 +290,7 @@ class _DashboardState extends State<Dashboard> {
                       child: Hero(
                         tag: cItem.itemImg.toString(),
                         child: Container(
-                          height: 120,
+                          height: 160,
                           width: 160,
                           decoration: BoxDecoration(
                             image: DecorationImage(
@@ -271,7 +345,7 @@ class _DashboardState extends State<Dashboard> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(left: 10),
+                padding: EdgeInsets.only(left: 10,),
                 child: Text(
                   cItem.title!,
                   style: GoogleFonts.sourceSansPro(
@@ -281,7 +355,7 @@ class _DashboardState extends State<Dashboard> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(left: 10, bottom: 5),
+                padding: EdgeInsets.only(left: 10, bottom: 5, top: 2),
                 child: Text(
                   cItem.subtitle!,
                   style: GoogleFonts.sourceSansPro(
@@ -291,7 +365,7 @@ class _DashboardState extends State<Dashboard> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(left: 10, right: 10),
+                padding: EdgeInsets.only(top: 15,left: 10, right: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -399,7 +473,7 @@ class _DashboardState extends State<Dashboard> {
         color: Color(0xFF1A1819),
       ),
       child: Padding(
-        padding: const EdgeInsets.only(bottom: 20.0),
+        padding: const EdgeInsets.only(bottom: 20),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -408,21 +482,24 @@ class _DashboardState extends State<Dashboard> {
             buttomBarIcon(EvaIcons.heart),
             Container(
               height: 40,
-              child: Stack(
-                children: [
-                  Icon(EvaIcons.bell, color: Color(0xFF4E4F53)),
-                  Positioned(
-                    top: 2,
-                    left: 15,
-                    child: Container(
-                      height: 7,
-                      width: 7,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(3.2),
-                          color: Colors.red),
-                    ),
-                  )
-                ],
+              child: Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Stack(
+                  children: [
+                    Icon(EvaIcons.bell, color: Color(0xFF4E4F53)),
+                    Positioned(
+                      top: 2,
+                      left: 15,
+                      child: Container(
+                        height: 7,
+                        width: 7,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(3.2),
+                            color: Colors.red),
+                      ),
+                    )
+                  ],
+                ),
               ),
             )
           ],
