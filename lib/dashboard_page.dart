@@ -43,6 +43,7 @@ class _DashboardState extends State<Dashboard> {
         subtitle: 'With Chocolate',
         title: 'Cappuccino'),
   ];
+  int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -268,7 +269,9 @@ class _DashboardState extends State<Dashboard> {
         onTap: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => ItemDetails(cItem: cItem,),
+              builder: (context) => ItemDetails(
+                cItem: cItem,
+              ),
             ),
           );
         },
@@ -486,28 +489,40 @@ class _DashboardState extends State<Dashboard> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            buttomBarIcon(EvaIcons.home),
-            buttomBarIcon(FontAwesomeIcons.bagShopping),
-            buttomBarIcon(EvaIcons.heart),
-            Container(
-              height: 40,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: Stack(
-                  children: [
-                    Icon(EvaIcons.bell, color: Color(0xFF4E4F53)),
-                    Positioned(
-                      top: 2,
-                      left: 15,
-                      child: Container(
-                        height: 7,
-                        width: 7,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(3.2),
-                            color: Colors.red),
+            buttomBarIcon(EvaIcons.home, 0),
+            buttomBarIcon(FontAwesomeIcons.bagShopping, 1),
+            buttomBarIcon(EvaIcons.heart, 2),
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  selectedIndex = 3;
+                });
+              },
+              child: Container(
+                height: 40,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Stack(
+                    children: [
+                      Icon(
+                        EvaIcons.bell,
+                        color: selectedIndex == 3
+                            ? ColorPalette.coffeeSelected
+                            : Color(0xFF4E4F53),
                       ),
-                    )
-                  ],
+                      Positioned(
+                        top: 2,
+                        left: 15,
+                        child: Container(
+                          height: 7,
+                          width: 7,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(3.2),
+                              color: Colors.red),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             )
@@ -517,11 +532,20 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
-  Container buttomBarIcon(IconData icon) {
-    return Container(
-        child: FaIcon(
-      icon,
-      color: Color(0xFF4E4F53),
-    ));
+  GestureDetector buttomBarIcon(IconData icon, int index) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          selectedIndex = index;
+        });
+      },
+      child: Container(
+          child: FaIcon(
+        icon,
+        color: selectedIndex == index
+            ? ColorPalette.coffeeSelected
+            : Color(0xFF4E4F53),
+      )),
+    );
   }
 }
