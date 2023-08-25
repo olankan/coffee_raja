@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, duplicate_ignore
 
 import 'package:coffee_raja/color_palette.dart';
+import 'package:coffee_raja/screens/item_details.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
@@ -231,8 +232,8 @@ class _DashboardState extends State<Dashboard> {
                                   children: [
                                     Container(
                                       height: 100,
-                                      width:
-                                          MediaQuery.of(context).size.width - 220,
+                                      width: MediaQuery.of(context).size.width -
+                                          220,
                                       child: Text(
                                         '5 Coffee Beans You Must Try !',
                                         style: GoogleFonts.sourceSansPro(
@@ -264,7 +265,13 @@ class _DashboardState extends State<Dashboard> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10),
       child: GestureDetector(
-        onTap: () {},
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => ItemDetails(cItem: cItem,),
+            ),
+          );
+        },
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
@@ -345,7 +352,9 @@ class _DashboardState extends State<Dashboard> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(left: 10,),
+                padding: EdgeInsets.only(
+                  left: 10,
+                ),
                 child: Text(
                   cItem.title!,
                   style: GoogleFonts.sourceSansPro(
@@ -365,7 +374,7 @@ class _DashboardState extends State<Dashboard> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 15,left: 10, right: 10),
+                padding: EdgeInsets.only(top: 15, left: 10, right: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
