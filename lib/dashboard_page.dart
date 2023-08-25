@@ -8,6 +8,7 @@ import 'package:iconify_flutter/icons/zondicons.dart';
 import 'package:coffee_raja/search_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:coffee_raja/models/coffee_Item.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -26,6 +27,21 @@ class _DashboardState extends State<Dashboard> {
 
   String SelectedItem = 'Cappuccino';
   int counter = -1;
+
+  final List<CoffeeItem> coffeeList = [
+    CoffeeItem(
+        rating: 4.5,
+        itemImg: 'images/coffeemain.jpeg',
+        price: 4.21,
+        subtitle: 'With Oat Milk',
+        title: 'Cappuccino'),
+    CoffeeItem(
+        rating: 4.2,
+        itemImg: 'images/secondary.jpeg',
+        price: 3.14,
+        subtitle: 'With Chocolate',
+        title: 'Cappuccino'),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +120,7 @@ class _DashboardState extends State<Dashboard> {
               SizedBox(height: 20),
               // THE COFFEE LIST TAB
               Padding(
-                padding: EdgeInsets.only(left: 15, right: 15, top: 15),
+                padding: EdgeInsets.only(top: 15),
                 child: ShaderMask(
                   shaderCallback: (Rect bounds) {
                     return LinearGradient(
@@ -135,6 +151,33 @@ class _DashboardState extends State<Dashboard> {
                   ),
                 ),
               ),
+              // COFFEE CONTAINERS
+              Container(
+                height: (MediaQuery.of(context).size.height / 2) - 50,
+                // color: Colors.white,
+                width: MediaQuery.of(context).size.width,
+                child: ListView(
+                  padding: EdgeInsets.only(top: 5),
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 15.0, right: 15),
+                      child: Container(
+                        color: Color(0xFF0D0F14),
+                        width: MediaQuery.of(context).size.width - 10,
+                        height: 225.0,
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: [
+                            ...coffeeList.map((e) {
+                              return _buildCoffeeItem(e);
+                            }).toList()
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
@@ -143,10 +186,172 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
+  Widget _buildCoffeeItem(CoffeeItem cItem) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      child: GestureDetector(
+        onTap: () {},
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: <Color>[ColorPalette.gradientTopLeft, Colors.black],
+            ),
+          ),
+          height: 200,
+          width: 180,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: 140,
+                width: 180,
+                child: Stack(
+                  children: [
+                    Positioned(
+                      top: 10,
+                      left: 10,
+                      child: Hero(
+                        tag: cItem.itemImg.toString(),
+                        child: Container(
+                          height: 120,
+                          width: 160,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(cItem.itemImg!),
+                              fit: BoxFit.cover,
+                            ),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      right: 10,
+                      top: 10,
+                      child: Container(
+                        height: 25,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          color: Color(0xFF342520).withOpacity(0.7),
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(15),
+                            bottomLeft: Radius.circular(15),
+                          ),
+                        ),
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 5),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.star,
+                                  size: 15,
+                                  color: ColorPalette.coffeeSelected,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 2),
+                                  child: Text(
+                                    cItem.rating.toString(),
+                                    style: GoogleFonts.sourceSansPro(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                        fontSize: 13),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 10),
+                child: Text(
+                  cItem.title!,
+                  style: GoogleFonts.sourceSansPro(
+                    color: Colors.white,
+                    fontSize: 17,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 10, bottom: 5),
+                child: Text(
+                  cItem.subtitle!,
+                  style: GoogleFonts.sourceSansPro(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w200),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 10, right: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      height: 40,
+                      width: 60,
+                      child: Row(
+                        children: [
+                          Text(
+                            '\$',
+                            style: GoogleFonts.sourceSansPro(
+                                fontWeight: FontWeight.bold,
+                                color: ColorPalette.coffeeSelected,
+                                fontSize: 20),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 1),
+                            child: Text(
+                              cItem.price.toString(),
+                              style: GoogleFonts.sourceSansPro(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontSize: 20),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        //To Do
+                      },
+                      child: Container(
+                        height: 30,
+                        width: 30,
+                        decoration: BoxDecoration(
+                            color: ColorPalette.coffeeSelected,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Icon(
+                          Icons.add,
+                          size: 11,
+                          color: Colors.white,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget _buildTypes(coffee, counter) {
     return Padding(
-      padding:
-          counter != 0 ? EdgeInsets.only(left: 25) : EdgeInsets.only(left: 7),
+      padding: counter != 0
+          ? EdgeInsets.only(left: 25, right: 12)
+          : EdgeInsets.only(left: 7),
       child: Container(
         height: 50,
         color: Color(0xFF0D0F14),
@@ -206,7 +411,6 @@ class _DashboardState extends State<Dashboard> {
               child: Stack(
                 children: [
                   Icon(EvaIcons.bell, color: Color(0xFF4E4F53)),
-                
                   Positioned(
                     top: 2,
                     left: 15,
@@ -229,12 +433,9 @@ class _DashboardState extends State<Dashboard> {
 
   Container buttomBarIcon(IconData icon) {
     return Container(
-      child: FaIcon(icon,
+        child: FaIcon(
+      icon,
       color: Color(0xFF4E4F53),
-      )
-      
-      
-
-    );
+    ));
   }
 }
